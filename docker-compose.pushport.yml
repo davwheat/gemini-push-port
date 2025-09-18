@@ -1,0 +1,16 @@
+name: pushport
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: pushport.Dockerfile
+    restart: unless-stopped
+    env_file:
+      - pushport.env
+    volumes:
+      - pushport_workdir:/var/pushport-workdir
+      - ~/service-account.json:/opt/service-account.json:ro
+
+volumes:
+  pushport_workdir:

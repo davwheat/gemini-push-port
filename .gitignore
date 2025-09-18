@@ -1,0 +1,5 @@
+/assets/media/
+/node_modules/
+/src/.env
+/src/tmp/
+/service-account.json
