@@ -4,6 +4,7 @@ import (
 	"gemini-push-port/logging"
 	"os"
 	"path"
+	"strings"
 )
 
 func Thread(rawMessageChan chan *XmlMessageWithTime) {
@@ -52,7 +53,9 @@ func appendMessageToFile(workdir string, msg *XmlMessageWithTime) error {
 			logging.Logger.ErrorE("failed to close file", err)
 		}
 	}(f)
-	_, err = f.WriteString(msg.Message + "\n")
+	cleanMsg := strings.ReplaceAll(msg.Message, "\n", " ")
+	cleanMsg = strings.ReplaceAll(cleanMsg, "\r", " ")
+	_, err = f.WriteString(cleanMsg + "\n")
 	if err != nil {
 		return err
 	}
