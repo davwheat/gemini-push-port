@@ -35,4 +35,5 @@ Build the docker container and run it with Docker Compose:
 docker compose up --build
 ```
 
-The service will start and run in the background.
+If you want to run the service in the background, add the `-d` flag to the command above to run it
+in [detached mode](https://docs.docker.com/reference/cli/docker/compose/up/#options).
