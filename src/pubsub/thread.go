@@ -106,6 +106,12 @@ outer:
 				if rawChanFailures >= 2 {
 					rawChanFailures -= 2
 				}
+
+				// commit the message
+				err := r.CommitMessages(ctx, m)
+				if err != nil {
+					logging.Logger.Errorf(err, "failed to commit message: %s", string(m.Value))
+				}
 			default:
 				logging.Logger.ErrorMsg("Raw message channel full, discarding value")
 				rawChanFailures++
