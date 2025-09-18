@@ -1,13 +1,13 @@
-name: pushport
+name: gemini-pushport
 
 services:
-  app:
+  consumer:
     build:
       context: .
-      dockerfile: pushport.Dockerfile
+      dockerfile: Dockerfile
     restart: unless-stopped
     env_file:
-      - pushport.env
+      - .env
     volumes:
       - pushport_workdir:/var/pushport-workdir
       - ~/service-account.json:/opt/service-account.json:ro
