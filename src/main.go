@@ -35,14 +35,14 @@ func main() {
 	}
 
 	r2s3config, err := config.LoadDefaultConfig(context.TODO(),
-		config.WithCredentialsProvider(credentials.NewStaticCredentialsProvider(os.Getenv("CLOUDFLARE_R2_ACCESS_KEY_ID"), os.Getenv("CLOUDFLARE_R2_SECRET_ACCESS_KEY"), "")),
+		config.WithCredentialsProvider(credentials.NewStaticCredentialsProvider(os.Getenv("S3_COMPATIBLE_ACCESS_KEY_ID"), os.Getenv("S3_COMPATIBLE_SECRET_ACCESS_KEY"), "")),
 		config.WithRegion("auto"),
 	)
 	if err != nil {
 		logger.FatalE("failed to load s3 config", err)
 	}
 	r2s3client := s3.NewFromConfig(r2s3config, func(opt *s3.Options) {
-		opt.BaseEndpoint = aws.String(os.Getenv("CLOUDFLARE_R2_S3_ENDPOINT"))
+		opt.BaseEndpoint = aws.String(os.Getenv("S3_COMPATIBLE_ENDPOINT"))
 	})
 
 	_, err = s.NewJob(

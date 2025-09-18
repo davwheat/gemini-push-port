@@ -48,8 +48,8 @@ func DumpToBucketJob(s3client *s3.Client) {
 
 func uploadToS3(s3client *s3.Client, filePath string) error {
 	workDir := os.Getenv("PUSH_PORT_DUMP_WORKDIR")
-	r2PathPrefix := os.Getenv("PUSH_PORT_DUMP_R2_PATH_PREFIX")
-	bucketName := os.Getenv("CLOUDFLARE_R2_BUCKET_NAME")
+	r2PathPrefix := os.Getenv("S3_PUSH_PORT_DUMP_S3_PATH_PREFIX")
+	bucketName := os.Getenv("S3_COMPATIBLE_BUCKET_NAME")
 
 	localFilePath := path.Join(workDir, filePath)
 	remoteFilePath := path.Join(r2PathPrefix, filePath+".gz")
