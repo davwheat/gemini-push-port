@@ -20,9 +20,9 @@ Messages from the push port will be stored at the location specified by the `PUS
 variable in flat files organised into directories by year, month and day. For example, a message received on 19
 September 2025 at 16:45 will be stored in `${PUSH_PORT_DUMP_WORKDIR}/2025/09/19/16.pport`.
 
-Every minute, the service will attempt to push the current hour and previous hour's flat files to the configured
-S3-compatible storage. Every hour, the service will attempt to delete flat files older than one week so that it doesn't
-fill up your local disk. Intervals for both of these tasks can be configured within `src/main.go`.
+Every minute, the service will attempt to upload the current hour and previous hour's flat files (gzipped) to the
+configured S3-compatible storage. Every hour, the service will attempt to delete flat files older than one week so that
+it doesn't fill up your local disk. Intervals for both of these tasks can be configured within `src/main.go`.
 
 ## Deployment
 
