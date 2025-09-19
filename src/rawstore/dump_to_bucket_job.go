@@ -14,16 +14,6 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 )
 
-var ukTimezone *time.Location
-
-func init() {
-	var err error
-	ukTimezone, err = time.LoadLocation("Europe/London")
-	if err != nil {
-		panic(err)
-	}
-}
-
 func DumpToBucketJob(s3client *s3.Client) {
 	logging.Logger.Infof("Starting dump to bucket job...")
 
