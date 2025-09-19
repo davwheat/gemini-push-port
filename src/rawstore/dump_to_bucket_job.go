@@ -27,7 +27,7 @@ func init() {
 func DumpToBucketJob(s3client *s3.Client) {
 	logging.Logger.Infof("Starting dump to bucket job...")
 
-	nowTime := time.Now().In(ukTimezone)
+	nowTime := time.Now().UTC()
 
 	// upload the current hour's file and the previous hour's file
 	hourlyFiles := []string{

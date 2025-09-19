@@ -96,7 +96,7 @@ outer:
 			}
 
 			rawMsg := rawstore.XmlMessageWithTime{
-				MessageTime: m.Time,
+				MessageTime: m.Time.UTC(),
 				Message:     string(m.Value),
 			}
 

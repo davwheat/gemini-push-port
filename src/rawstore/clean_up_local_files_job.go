@@ -16,7 +16,7 @@ func CleanUpLocalFilesJob() {
 		panic("PUSH_PORT_DUMP_WORKDIR environment variable not set")
 	}
 
-	nowTime := time.Now().In(ukTimezone)
+	nowTime := time.Now().UTC()
 	cleanupCutoff := nowTime.Add(-48 * time.Hour)
 
 	err := recursiveDeletionWalk(workDir, cleanupCutoff)
