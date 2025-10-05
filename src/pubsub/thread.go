@@ -20,6 +20,7 @@ const messageLogInterval = 100
 
 const maxBatchSize = 1_000_000 // 1 MB
 const minBatchSize = 100       // 100 B
+const readTimeout = 15 * time.Minute
 
 func Thread(rawMessageChan chan *rawstore.XmlMessageWithTime) {
 	failedAttempts := 0
@@ -81,9 +82,16 @@ outer:
 		logging.Logger.Infof("Created reader for Kafka topic %s on host %s", topic, host)
 
 		for {
-			ctx := context.Background()
+			ctx, cancel := context.WithTimeout(context.Background(), readTimeout)
 			m, err := r.FetchMessage(ctx)
+			cancel()
+
 			if err != nil {
+				if errors.Is(err, context.DeadlineExceeded) {
+					logging.Logger.Warnf("No message received for %v, restarting reader", readTimeout)
+					continue outer
+				}
+
 				logging.Logger.Errorf(err, "failed to read pubsub message")
 				failedAttempts++
 				continue outer
