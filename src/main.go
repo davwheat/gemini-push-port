@@ -22,9 +22,14 @@ import (
 const serviceName = "gemini-push-port"
 
 func main() {
-	logging.InitialiseLogging(serviceName, true, logging.SentryConfig{
-		DSN: "https://d63d2a2334e7211d78128ca6bab184d6@sentry.service.davw.network/7",
-	})
+	sentryDsn := os.Getenv("SENTRY_DSN")
+	var sentryConfig logging.SentryConfig
+	if sentryDsn != "" {
+		sentryConfig = logging.SentryConfig{
+			DSN: sentryDsn,
+		}
+	}
+	logging.InitialiseLogging(serviceName, true, sentryConfig)
 	logger := logging.Logger
 
 	logger.Infof("Starting consumer...")
