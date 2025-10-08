@@ -41,7 +41,7 @@ func main() {
 
 	r2s3config, err := config.LoadDefaultConfig(context.TODO(),
 		config.WithCredentialsProvider(credentials.NewStaticCredentialsProvider(os.Getenv("S3_COMPATIBLE_ACCESS_KEY_ID"), os.Getenv("S3_COMPATIBLE_SECRET_ACCESS_KEY"), "")),
-		config.WithRegion("auto"),
+		config.WithRegion(os.Getenv("S3_COMPATIBLE_REGION")),
 	)
 	if err != nil {
 		logger.FatalE("failed to load s3 config", err)
