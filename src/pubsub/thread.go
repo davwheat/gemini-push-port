@@ -81,9 +81,11 @@ outer:
 		})
 		logging.Logger.Infof("Created reader for Kafka topic %s on host %s", topic, host)
 
+		ctx := context.Background()
+
 		for {
-			ctx, cancel := context.WithTimeout(context.Background(), readTimeout)
-			m, err := r.FetchMessage(ctx)
+			readCtx, cancel := context.WithTimeout(ctx, readTimeout)
+			m, err := r.FetchMessage(readCtx)
 			cancel()
 
 			if err != nil {
