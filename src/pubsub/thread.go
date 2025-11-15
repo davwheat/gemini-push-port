@@ -51,6 +51,16 @@ func Thread(rawMessageChan chan *rawstore.XmlMessageWithTime) {
 
 outer:
 	for {
+		if r != nil {
+			// Clean up after we've abandoned ship with a previous reader
+			logging.Logger.Infof("Closing Kafka reader...")
+			err := r.Close()
+			if err != nil {
+				log.Fatal("failed to close reader:", err)
+			}
+			r = nil
+		}
+
 		if failedAttempts > 0 {
 			seconds := 1 << (min(failedAttempts, 8) - 1)
 
