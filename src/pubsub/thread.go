@@ -20,7 +20,7 @@ const messageLogInterval = 100
 
 const maxBatchSize = 1_000_000 // 1 MB
 const minBatchSize = 100       // 100 B
-const readTimeout = 15 * time.Minute
+const readTimeout = 30 * time.Minute
 
 func Thread(rawMessageChan chan *rawstore.XmlMessageWithTime) {
 	failedAttempts := 0
